@@ -17,4 +17,5 @@ build
 !jest.config.js
 !plopfile.js
 !react-shim.js
+.env
 !tsup.config.ts
