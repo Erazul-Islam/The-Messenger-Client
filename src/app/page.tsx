@@ -12,7 +12,6 @@ export default function Home() {
 
   
   const {userInfo} = useUserInfo()
-  console.log(userInfo)
 
 
   return (
