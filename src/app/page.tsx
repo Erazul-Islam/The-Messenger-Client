@@ -1,11 +1,23 @@
+/* eslint-disable padding-line-between-statements */
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 
+"use client"
+
+import { logout } from "../utils/logout";
+import { useUserInfo } from "../utils/userinfo";
+
 
 export default function Home() {
-  return (
-    <section style={{marginLeft:50,textAlign:'center'}}>
 
+  
+  const {userInfo} = useUserInfo()
+  console.log(userInfo)
+
+
+  return (
+    <section style={{ marginLeft: 50, textAlign: 'center' }}>
+          <button onClick={logout}>Logout</button>
     </section>
   );
 }

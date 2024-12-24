@@ -28,8 +28,6 @@ const SignupUser = () => {
             ...data,
             role: "MEMBER", 
         };
-
-        console.log(userData);
         setLoading(true);
 
         try {
@@ -67,15 +65,16 @@ const SignupUser = () => {
                     onSubmit={onSubmit}
                 >
                     <div className="py-3">
-                        <TSInput label="Name" name="name" size="sm" />
+                        <TSInput required label="Name" name="name" size="sm" />
                     </div>
                     <div className="py-3">
-                        <TSInput label="Email" name="email" size="sm" />
+                        <TSInput required label="Email" name="email" size="sm" />
                     </div>
                     <div className="py-3">
                         <TSInput
                             label="Password"
                             name="password"
+                            required
                             size="sm"
                             type="password"
                         />
@@ -85,7 +84,7 @@ const SignupUser = () => {
                         size="lg"
                         type="submit"
                     >
-                        Register
+                        {loading? "signing.." : "Sign in"}
                     </Button>
                 </TSForm>
                 <div className="text-center">
