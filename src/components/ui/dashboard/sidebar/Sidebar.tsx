@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
+import SidebarSkeleton from "../../skeleton/Skeleton";
 
 type Group = {
   id: string;
@@ -90,7 +91,7 @@ const Sidebar = () => {
   };
 
   if (isLoading) {
-    return <div>Loading groups...</div>;
+    return <SidebarSkeleton />;
   }
 
   if (isError) {
@@ -98,30 +99,40 @@ const Sidebar = () => {
   }
 
   return (
-    <div>
-      <div>
-        <div>
-          <span>Administrator</span>
-        </div>
-      </div>
-      <ul>
-        {menuItems.map((cat) => (
-          <li key={cat.title}>
-            <span>{cat.title}</span>
-            {cat.list?.map((item) => (
-              <a href={item.path} key={item.title}>
-                {item.icon}
-                <span>{item.title}</span>
-              </a>
-            ))}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleLogout}>
-        <MdLogout />
-        Logout
-      </button>
-    </div>
+    <aside className="bg-white text-gray-500 w-[300px] h-full">
+
+      <nav>
+        <ul className="space-y-4 p-6">
+          {menuItems.map((category) => (
+            <li key={category.title}>
+              <h2 className="text-sm uppercase font-semibold mb-2">{category.title}</h2>
+              <ul className="space-y-2">
+                {category.list.map((item) => (
+                  <li key={item.title}>
+                    <a
+                      href={item.path}
+                      className="flex items-center space-x-3 p-2 rounded hover:bg-gray-700"
+                    >
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <footer className="mt-8 ml-4">
+        <button
+          onClick={handleLogout}
+          className="flex items-center space-x-2 p-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          <MdLogout />
+          <span>Logout</span>
+        </button>
+      </footer>
+    </aside>
   );
 };
 

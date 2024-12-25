@@ -9,6 +9,7 @@ import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 import { Navbar } from "../components/navbar";
 import Sidebar from "../components/ui/dashboard/sidebar/Sidebar";
+import Rightbar from "../components/ui/dashboard/rightbar/rightbar";
 
 export const metadata: Metadata = {
   title: {
@@ -44,11 +45,11 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <Navbar />
-          <main className="flex">
-            <div className="min-h-screen p-[20px] flex-1">
+          <main className="lg:flex justify-between lg:ml-[255px] lg:mr-[255px]">
+            <div className="">
                   <Sidebar/>
             </div>
-            <div className="flex p-[20px]">
+            <div className="">
               {children}
             </div>
           </main>
