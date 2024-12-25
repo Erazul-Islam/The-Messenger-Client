@@ -99,7 +99,7 @@ const Sidebar = () => {
   }
 
   return (
-    <aside className="bg-white text-gray-500 w-[300px] h-full">
+    <aside className="bg-white shadow-lg text-gray-500 w-[300px] h-full">
 
       <nav>
         <ul className="space-y-4 p-6">
@@ -111,7 +111,7 @@ const Sidebar = () => {
                   <li key={item.title}>
                     <a
                       href={item.path}
-                      className="flex items-center space-x-3 p-2 rounded hover:bg-gray-700"
+                      className="flex items-center space-x-3 p-2 rounded hover:bg-blue-600 hover:text-white"
                     >
                       {item.icon}
                       <span>{item.title}</span>

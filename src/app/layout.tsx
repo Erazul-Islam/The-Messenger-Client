@@ -45,10 +45,7 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <Navbar />
-          <main className="lg:flex justify-between lg:ml-[255px] lg:mr-[255px]">
-            <div className="">
-                  <Sidebar/>
-            </div>
+          <main className="">
             <div className="">
               {children}
             </div>

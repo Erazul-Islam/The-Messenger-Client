@@ -2,8 +2,13 @@
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
 
-import React from 'react';
+import React, { useState } from 'react';
 import RightbarSkeleton from '../../skeleton/RightBarSkeleton';
+import { Button } from '@nextui-org/button';
+import { useUserInfo } from '@/src/utils/userinfo';
+import { toast } from 'sonner';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 type User = {
     id: string;
@@ -30,16 +35,54 @@ export type TGroup = {
 
 type GroupMembersProps = {
     groups: TGroup[];
-    isLoading : boolean
- };
+    isLoading: boolean
+};
 
 
-const Rightbar: React.FC<GroupMembersProps> = ({ groups,isLoading }) => {
+const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
 
-    console.log("Rightbar", groups)
+    console.log(groups)
 
-    if(isLoading){
-       return <RightbarSkeleton/>
+    const { userInfo } = useUserInfo()
+    const [loadingGroup, setLoadingGroup] = useState<string | null>(null);
+    const token = Cookies.get("accessToken");
+
+    const handleJoinGroup = async (groupId: string) => {
+        if (userInfo === null) {
+            toast.error("Please log in first")
+            return
+        }
+        setLoadingGroup(groupId)
+
+        try {
+            const response = await axios.post(`http://localhost:5000/api/group/join-group/${userInfo?.id}/${groupId}`, {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            console.log(response)
+
+            if (response.status === 200) {
+                toast.success("Successfully joined the group")
+            }
+        }
+        catch (err) {
+            console.log(err)
+            toast.error("Something went wrong")
+        }
+        finally {
+            setLoadingGroup(null);
+        }
+    }
+
+    const isUserInGroup = (group: TGroup) => {
+        return group.userGroups.some((userGroup) => userGroup.user.id === userInfo?.id);
+    };
+
+    if (isLoading) {
+        return <RightbarSkeleton />
     }
 
     return (
@@ -69,8 +112,8 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups,isLoading }) => {
                                             </div>
                                             <span
                                                 className={`text-xs font-semibold px-3 py-1 rounded-full ${userGroup.user.role === 'ADMIN'
-                                                        ? 'bg-blue-100 text-blue-700'
-                                                        : 'bg-green-100 text-green-700'
+                                                    ? 'bg-blue-100 text-blue-700'
+                                                    : 'bg-green-100 text-green-700'
                                                     }`}
                                             >
                                                 {userGroup.user.role}
@@ -82,6 +125,19 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups,isLoading }) => {
                                 <p className="text-sm text-gray-500">No members found.</p>
                             )}
                         </div>
+                        {isUserInGroup(group) ? (
+                            <Button color="secondary" className="mt-4" disabled>
+                                Joined
+                            </Button>
+                        ) : loadingGroup === group.id ? (
+                            <Button isLoading color="secondary" className="mt-4">
+                                Joining...
+                            </Button>
+                        ) : (
+                            <Button color="secondary" className="mt-4" onClick={() => handleJoinGroup(group.id)}>
+                                Join Group
+                            </Button>
+                        )}
                     </div>
                 ))}
             </div>
