@@ -13,3 +13,22 @@ export interface IInput {
   name: string;
   disabled?: boolean;
 }
+
+// components/chat/types.ts
+export interface Message {
+  content: string;
+  userId: string;
+  createdAt: string;
+  user: {
+      name: string;
+  };
+}
+
+export interface Group {
+  id: string;
+  name: string;
+}
+
+export interface ChatProps {
+  id: string;
+}

@@ -71,7 +71,15 @@ const Chat = () => {
                     }
                 );
                 console.log(res)
-                setMessages(res.data.data);
+                setMessages((prevMessages) => {
+                    const newMessages = res.data.data.filter(
+                        (message: any) =>
+                            !prevMessages.some(
+                                (prevMessage) => prevMessage.content === message.content && prevMessage.createdAt === message.createdAt
+                            )
+                    );
+                    return [...prevMessages, ...newMessages];
+                });
             } catch (error) {
                 toast.error("Failed to fetch messages. Please try again.");
             } finally {
@@ -85,10 +93,16 @@ const Chat = () => {
 
     useEffect(() => {
         socket.on("receiveMessage", ({ content, userId, createdAt }) => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { content, userId, createdAt },
-            ]);
+
+            const newMessage = { content, userId, createdAt };
+
+            setMessages((prevMessages) => {
+                // Avoid adding the same message
+                if (!prevMessages.some((message) => message.content === newMessage.content && message.createdAt === newMessage.createdAt)) {
+                    return [...prevMessages, newMessage];
+                }
+                return prevMessages;
+            });
             scrollToBottom();
         });
 
@@ -104,7 +118,7 @@ const Chat = () => {
                 content: newMessage,
                 groupId: id,
                 userId: userId,
-
+                createdAt: new Date().toISOString()
             };
 
             console.log(messageData)
@@ -144,16 +158,15 @@ const Chat = () => {
         }
     };
 
-    console.log("message", messages)
 
     return (
-        <div className="lg:flex">
+        <div className="lg:flex justify-between lg:ml-[225px] lg:mr-[225px]">
             <div className="">
                 <Sidebar />
             </div>
-            <div className="flex flex-col h-screen w-[400px] bg-gray-100 shadow-lg mr-[100px]">
+            <div className="flex flex-col lg:h-[700px] w-[400px] bg-gray-100 shadow-lg ">
                 {/* Chat Header */}
-                <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
+                <div className="bg-blue-600 text-white p-4 flex shadow-lg items-center justify-between">
                     <h2 className="text-lg font-bold">Chat Room</h2>
                     <button className="text-sm bg-blue-800 px-2 py-1 rounded hover:bg-blue-700">
                         Leave
@@ -178,10 +191,10 @@ const Chat = () => {
                                         : "bg-blue-500 text-white"
                                         } px-4 py-2 rounded-lg max-w-xs`}
                                 >
-                                    <p className="text-sm">{message.content}</p>
-                                    <p className="text-sm">{message.user.name}</p>
+                                    <p className="text-sm">{message?.content}</p>
+                                    <p className="text-sm">{message?.user?.name}</p>
                                     <p className="text-xs text-white-500 mt-1">
-                                        {new Date(message.createdAt).toLocaleTimeString()}
+                                        {message?.createdAt ? new Date(message.createdAt).toLocaleTimeString() : ""}
                                     </p>
                                 </div>
                             </div>

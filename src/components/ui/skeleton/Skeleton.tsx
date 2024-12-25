@@ -6,17 +6,17 @@ import React from "react";
 
 const SidebarSkeleton = () => {
   return (
-    <aside className="bg-white h-full w-[300px] p-6 animate-pulse">
+    <aside className="bg-white shadow-lg h-[700px] overflow-visible w-[300px] p-6 animate-pulse">
       <header className="mb-6">
         <div className="h-6 w-32 bg-gray-300 rounded"></div>
       </header>
       <nav>
         <ul className="space-y-4">
-          {Array.from({ length: 3 }).map((_, idx) => (
+          {Array.from({ length: 4 }).map((_, idx) => (
             <li key={idx}>
               <div className="h-4 w-20 bg-gray-300 rounded mb-2"></div>
               <ul className="space-y-2">
-                {Array.from({ length: 3 }).map((_, subIdx) => (
+                {Array.from({ length: 4 }).map((_, subIdx) => (
                   <li key={subIdx}>
                     <div className="flex items-center space-x-3 p-2">
                       <div className="h-6 w-6 bg-gray-300 rounded"></div>

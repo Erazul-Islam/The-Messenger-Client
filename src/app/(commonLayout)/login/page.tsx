@@ -17,13 +17,14 @@ import TSForm from "@/src/components/form/form";
 import TSInput from "@/src/components/form/input";
 import axios from "axios";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 
 /* eslint-disable prettier/prettier */
 const LoginPage = () => {
     const [loading, setLoading] = useState(false)
-
+    const router = useRouter()
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setLoading(true)
@@ -41,6 +42,8 @@ const LoginPage = () => {
                 Cookies.set('accessToken', accessToken, { expires: 1 })
 
                 toast.success("Logged in successfully")
+
+                router.push('/')
             }
 
 

@@ -9,6 +9,7 @@ import { useUserInfo } from '@/src/utils/userinfo';
 import { toast } from 'sonner';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { io } from 'socket.io-client';
 
 type User = {
     id: string;
@@ -47,6 +48,8 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
     const [loadingGroup, setLoadingGroup] = useState<string | null>(null);
     const token = Cookies.get("accessToken");
 
+    
+
     const handleJoinGroup = async (groupId: string) => {
         if (userInfo === null) {
             toast.error("Please log in first")
@@ -64,7 +67,7 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
             )
             console.log(response)
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 toast.success("Successfully joined the group")
             }
         }
@@ -87,7 +90,7 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
 
     return (
         <div>
-            <div className="p-6 bg-white shadow-lg h-screen rounded-lg w-[300px]">
+            <div className="p-6 bg-white overflow-y-auto h-[700px] shadow-lg rounded-lg w-[300px]">
                 {groups.map((group) => (
                     <div key={group.id} className="mb-8">
                         {/* Group Header */}

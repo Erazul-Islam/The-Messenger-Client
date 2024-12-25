@@ -14,6 +14,7 @@ import axios from 'axios';
 
 import { toast } from 'sonner';
 import Cookies from 'js-cookie';
+import { Spinner } from '@nextui-org/react';
 
 type FormData = {
     name: string;
@@ -27,7 +28,7 @@ const Dashboard = () => {
 
 
     if (!userInfo) {
-        return <div>Loading...</div>;
+        return <Spinner style={{alignItems:"center", justifyContent:'center'}} />;
     }
 
     const userId = userInfo.id;
