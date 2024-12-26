@@ -58,7 +58,7 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
         setLoadingGroup(groupId)
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/group/join-group/${userInfo?.id}/${groupId}`, {},
+            const response = await axios.post(`https://the-messenger-xs42.onrender.com/api/group/join-group/${userInfo?.id}/${groupId}`, {},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

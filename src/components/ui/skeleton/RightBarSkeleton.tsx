@@ -9,7 +9,7 @@ import React from 'react';
 
 const RightbarSkeleton: React.FC = () => {
     return (
-        <div className="p-6 bg-white h-screen shadow-lg rounded-lg w-[300px]">
+        <div className="p-6 bg-white lg:h-[700px] shadow-lg rounded-lg w-[300px]">
             {/* Skeleton for Group Header */}
             <div className="border-b pb-4 mb-4">
                 <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
@@ -20,7 +20,7 @@ const RightbarSkeleton: React.FC = () => {
             <div>
                 <div className="h-5 bg-gray-300 rounded w-1/2 mb-4"></div>
                 <ul className="space-y-3">
-                    {[...Array(3)].map((_, index) => (
+                    {[...Array(2)].map((_, index) => (
                         <li
                             key={index}
                             className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm"

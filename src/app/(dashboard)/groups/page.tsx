@@ -4,11 +4,11 @@
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { motion } from "framer-motion"
 import { useRouter } from 'next/navigation';
+
 import { useUserInfo } from '@/src/utils/userinfo';
 
 
@@ -25,6 +25,7 @@ const GroupPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const router = useRouter()
+    const {userInfo} = useUserInfo()
 
     const token = Cookies.get("accessToken");
 
@@ -35,13 +36,23 @@ const GroupPage = () => {
     useEffect(() => {
         const fetchGroups = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/group/see-group`, {
+                const res = await axios.get(`https://the-messenger-xs42.onrender.com/api/group/see-group`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
 
-                setGroups(res.data.data);
+                const filteredGroups = res.data.data.filter((group: Group) => {
+                    if (userInfo?.role === "ADMIN") {
+                        return true; 
+                    } else if (userInfo?.role === "MEMBER" && group.type !== "ADMIN_CHAT") {
+                        return true; 
+                    }
+
+                    return false;
+                });
+
+                setGroups(filteredGroups);
 
                 setIsLoading(false);
             } catch (err) {
@@ -52,7 +63,7 @@ const GroupPage = () => {
         };
 
         fetchGroups();
-    }, [token]);
+    }, [token,userInfo?.role]);
 
 
     const handleClick = (groupId: string) => {
@@ -65,7 +76,7 @@ const GroupPage = () => {
                 Groups
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {groups.map((group, index) => {
+                {groups?.map((group, index) => {
                     const randomIcon = icons[Math.floor(Math.random() * icons.length)]; 
 
                     return (

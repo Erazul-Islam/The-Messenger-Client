@@ -1,6 +1,10 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/rules-of-hooks */
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
+
   name: "The messenger",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
@@ -9,8 +13,8 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Dashboard",
-      href: "/adminDashboard",
+      label: "Groups",
+      href: "/groups",
     },
   ],
   navMenuItems: [

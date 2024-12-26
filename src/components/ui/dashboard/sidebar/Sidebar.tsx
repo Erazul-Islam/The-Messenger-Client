@@ -44,7 +44,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/group/see-group`, {
+        const res = await axios.get(`https://the-messenger-xs42.onrender.com/api/group/see-group`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

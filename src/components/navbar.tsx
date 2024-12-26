@@ -41,7 +41,7 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 items-center justify-center">
-          {siteConfig.navItems.map((item) => (
+          {siteConfig?.navItems?.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
@@ -59,9 +59,6 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

@@ -13,7 +13,7 @@ import { useUserInfo } from "@/src/utils/userinfo";
 import Rightbar, { TGroup } from "@/src/components/ui/dashboard/rightbar/rightbar";
 import Sidebar from "@/src/components/ui/dashboard/sidebar/Sidebar";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://the-messenger-xs42.onrender.com");
 
 const Chat = () => {
     const { id } = useParams();
@@ -37,7 +37,7 @@ const Chat = () => {
         const fetchGroups = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5000/api/group/see-group/${id}`,
+                    `https://the-messenger-xs42.onrender.com/api/group/see-group/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ const Chat = () => {
         const fetchMessages = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5000/api/message/view/${id}`,
+                    `https://the-messenger-xs42.onrender.com/api/message/view/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -121,6 +121,7 @@ const Chat = () => {
     }, []);
 
     const handleSendMessage = async () => {
+        
         if (newMessage.trim()) {
             const userId = userInfo?.id;
             const messageData = {
@@ -137,7 +138,7 @@ const Chat = () => {
             try {
 
                 await axios.post(
-                    `http://localhost:5000/api/message/send/${id}/${userId}`,
+                    `https://the-messenger-xs42.onrender.com/api/message/send/${id}/${userId}`,
                     messageData,
                     {
                         headers: {
@@ -184,9 +185,7 @@ const Chat = () => {
                 <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
                     {messages.length === 0 && !isLoading ? (
                         <div className="font-serif">No messages yet.</div>
-                    ) : isLoading ? (
-                        <ChatSkeleton />
-                    ) : (
+                    ) :  (
                         messages.map((message, index) => (
                             <div
                                 key={index}

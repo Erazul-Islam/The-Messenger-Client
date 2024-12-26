@@ -12,11 +12,11 @@ const SidebarSkeleton = () => {
       </header>
       <nav>
         <ul className="space-y-4">
-          {Array.from({ length: 4 }).map((_, idx) => (
+          {Array.from({ length: 2 }).map((_, idx) => (
             <li key={idx}>
               <div className="h-4 w-20 bg-gray-300 rounded mb-2"></div>
               <ul className="space-y-2">
-                {Array.from({ length: 4 }).map((_, subIdx) => (
+                {Array.from({ length: 2 }).map((_, subIdx) => (
                   <li key={subIdx}>
                     <div className="flex items-center space-x-3 p-2">
                       <div className="h-6 w-6 bg-gray-300 rounded"></div>

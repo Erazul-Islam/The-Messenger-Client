@@ -6,7 +6,7 @@ import React from "react";
 
 const ChatSkeleton = () => {
   return (
-    <div className="flex flex-col h-screen lg:h-[700px] w-[400px] lg:mr-[300px] bg-gray-100 shadow-lg animate-pulse">
+    <div className="flex flex-col lg:h-[700px] w-[400px] lg:mr-[300px] bg-gray-100 shadow-lg animate-pulse">
       {/* Skeleton Header */}
       <div className="bg-gray-300 p-4 flex items-center justify-between">
         <div className="h-6 bg-gray-400 rounded w-24"></div>

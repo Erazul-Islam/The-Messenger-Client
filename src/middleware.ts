@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken'; // Use the 'jsonwebtoken' package for decoding
+import jwt from 'jsonwebtoken'; 
 
 const AuthRoutes = ["/login", "/signup"];
 
 const roleBasedRoutes = {
-  USER: ['/groups', '/userDashboard'], // For logged-in users
-  ADMIN: ['/groups','/adminDashboard'], // For admins
+  USER: ['/groups', '/userDashboard','/groups/[id]'], 
+  ADMIN: ['/groups','/adminDashboard','/groups/[id]'], 
 };
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Get the access token from cookies
+
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 

@@ -44,7 +44,7 @@ const Dashboard = () => {
         try {
             // Create group request
             await axios.post(
-                `http://localhost:5000/api/group/create-group/${userId}`,
+                `https://the-messenger-xs42.onrender.com/api/group/create-group/${userId}`,
                 {
                     name: data.name,
                     type: data.type,
