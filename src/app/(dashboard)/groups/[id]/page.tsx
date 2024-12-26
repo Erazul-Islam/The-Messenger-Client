@@ -49,9 +49,7 @@ const Chat = () => {
 
                 setIsLoading(false);
             } catch (err) {
-
-
-                toast.error("Failed to fetch groups. Please try again.");
+                toast.error(`Failed to fetch groups. ${err}`);
                 setIsLoading(false);
             }
         };
@@ -70,18 +68,19 @@ const Chat = () => {
                         },
                     }
                 );
-                console.log(res)
+
                 setMessages((prevMessages) => {
-                    const newMessages = res.data.data.filter(
+                    const newMessages = res.data?.data?.filter(
                         (message: any) =>
                             !prevMessages.some(
                                 (prevMessage) => prevMessage.content === message.content && prevMessage.createdAt === message.createdAt
                             )
                     );
+
                     return [...prevMessages, ...newMessages];
                 });
             } catch (error) {
-                toast.error("Failed to fetch messages. Please try again.");
+                toast.error(`Failed to fetch messages.${error}.`);
             } finally {
                 setIsLoading(false);
             }
@@ -90,19 +89,29 @@ const Chat = () => {
         if (id && token) fetchMessages();
     }, [id, token]);
 
+    console.log("messages", messages)
 
     useEffect(() => {
-        socket.on("receiveMessage", ({ content, userId, createdAt }) => {
+        socket.on("receiveMessage", ({ content, userId, groupId, userName, createdAt }) => {
 
-            const newMessage = { content, userId, createdAt };
+            if (content && userId && createdAt) {
+                const newMessage = { content, userId, groupId, userName, createdAt };
 
-            setMessages((prevMessages) => {
-                // Avoid adding the same message
-                if (!prevMessages.some((message) => message.content === newMessage.content && message.createdAt === newMessage.createdAt)) {
-                    return [...prevMessages, newMessage];
-                }
-                return prevMessages;
-            });
+                setMessages((prevMessages) => {
+                    // Avoid adding duplicate messages
+                    if (
+                        !prevMessages.some(
+                            (message) =>
+                                message.content === newMessage.content &&
+                                message.createdAt === newMessage.createdAt
+                        )
+                    ) {
+                        return [...prevMessages, newMessage];
+                    }
+
+                    return prevMessages;
+                });
+            }
             scrollToBottom();
         });
 
@@ -116,18 +125,18 @@ const Chat = () => {
             const userId = userInfo?.id;
             const messageData = {
                 content: newMessage,
-                groupId: id,
                 userId: userId,
+                groupId: id,
+                userName: userInfo?.name,
                 createdAt: new Date().toISOString()
             };
 
-            console.log(messageData)
 
             setLoading(true);
 
             try {
-                // Send message to backend
-                const res = await axios.post(
+
+                await axios.post(
                     `http://localhost:5000/api/message/send/${id}/${userId}`,
                     messageData,
                     {
@@ -137,21 +146,19 @@ const Chat = () => {
                     }
                 );
 
-                console.log(res)
+
                 socket.emit("sendMessage", messageData);
-
-
                 setMessages((prevMessages) => [
                     ...prevMessages,
-                    { ...messageData, createdAt: new Date().toISOString() },
+                    messageData
                 ]);
 
 
                 setNewMessage("");
                 messageInputRef.current?.focus();
             } catch (error) {
-                console.log(error)
-                toast.error("Failed to send message. Please try again.");
+
+                toast.error(`Failed to send message. ${error}`);
             } finally {
                 setLoading(false);
             }
@@ -167,34 +174,38 @@ const Chat = () => {
             <div className="flex flex-col lg:h-[700px] w-[400px] bg-gray-100 shadow-lg ">
                 {/* Chat Header */}
                 <div className="bg-blue-600 text-white p-4 flex shadow-lg items-center justify-between">
-                    <h2 className="text-lg font-bold">Chat Room</h2>
+                    <h2 className="text-lg font-serif">Chat Room</h2>
                     <button className="text-sm bg-blue-800 px-2 py-1 rounded hover:bg-blue-700">
-                        Leave
+                        Welcome
                     </button>
                 </div>
 
                 {/* Chat Messages */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
                     {messages.length === 0 && !isLoading ? (
-                        <div>No messages yet.</div>
+                        <div className="font-serif">No messages yet.</div>
                     ) : isLoading ? (
                         <ChatSkeleton />
                     ) : (
                         messages.map((message, index) => (
                             <div
                                 key={index}
-                                className={`flex ${index % 2 === 0 ? "items-start" : "justify-end items-end"} space-x-3`}
+                                className={`flex ${index % 2 === 0 ? "justify-start" : "justify-end"} my-2`}
                             >
                                 <div
                                     className={`${index % 2 === 0
-                                        ? "bg-gray-300 text-black"
-                                        : "bg-blue-500 text-white"
-                                        } px-4 py-2 rounded-lg max-w-xs`}
+                                        ? "bg-gray-100"
+                                        : "bg-blue-100"
+                                        } px-5 py-3 rounded-lg max-w-md shadow`}
                                 >
-                                    <p className="text-sm">{message?.content}</p>
-                                    <p className="text-sm">{message?.user?.name}</p>
-                                    <p className="text-xs text-white-500 mt-1">
-                                        {message?.createdAt ? new Date(message.createdAt).toLocaleTimeString() : ""}
+                                    <p className={`text-sm font-bold mb-1 ${index % 2 === 0 ? "text-pink-600" : "text-blue-600"}`}>
+                                        {message?.userName}
+                                    </p>
+                                    <p className={`text-sm ${index % 2 === 0 ? "text-gray-700" : "text-gray-800"}`}>
+                                        {message?.content}
+                                    </p>
+                                    <p className={`text-xs mt-2 ${index % 2 === 0 ? "text-gray-500" : "text-gray-600"}`}>
+                                        {message?.createdAt ? new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                                     </p>
                                 </div>
                             </div>

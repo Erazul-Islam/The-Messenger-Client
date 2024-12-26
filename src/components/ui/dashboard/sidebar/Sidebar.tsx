@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @next/next/no-async-client-component */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
@@ -33,6 +34,7 @@ const Sidebar = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const router = useRouter()
 
   const token = Cookies.get("accessToken");
