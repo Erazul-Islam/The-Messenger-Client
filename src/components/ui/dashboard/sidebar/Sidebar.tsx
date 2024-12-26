@@ -13,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import {
   MdDashboard,
   MdGroup,
-  MdOutlineSettings,
   MdLogout,
 } from "react-icons/md";
 
@@ -23,6 +22,7 @@ import { toast } from "sonner";
 import SidebarSkeleton from "../../skeleton/Skeleton";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useUserInfo } from "@/src/utils/userinfo";
 
 type Group = {
   id: string;
@@ -35,6 +35,7 @@ const Sidebar = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const router = useRouter()
+  const {userInfo} = useUserInfo()
 
   const token = Cookies.get("accessToken");
 
@@ -60,20 +61,33 @@ const Sidebar = () => {
     fetchGroups();
   }, [token]);
 
+  const filteredGroups = groups.filter((group) => {
+    if (userInfo?.role === "ADMIN") {
+      return true;  // Admin can see all groups
+    } else if (userInfo?.role === "MEMBER" && group.type !== "ADMIN_CHAT") {
+      return true;  // Member cannot see ADMIN_CHAT group
+    }
+    return false;
+  });
+
   const menuItems = [
     {
       title: "Main",
       list: [
-        {
-          title: "Dashboard",
-          path: "/adminDashboard",
-          icon: <MdDashboard />,
-        },
+        ...(userInfo?.role === "ADMIN"
+          ? [
+              {
+                title: "Dashboard",
+                path: "/adminDashboard",
+                icon: <MdDashboard />,
+              },
+            ]
+          : []),
       ],
     },
     {
       title: "Groups",
-      list: groups.map((group: Group) => ({
+      list: filteredGroups.map((group: Group) => ({
         title: group.name,
         path: `/groups/${group.id}`,
         icon: <MdGroup />,
