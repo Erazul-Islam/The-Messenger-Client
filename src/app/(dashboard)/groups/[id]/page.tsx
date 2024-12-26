@@ -167,7 +167,7 @@ const Chat = () => {
 
 
     return (
-        <div className="lg:flex justify-between lg:ml-[225px] lg:mr-[225px]">
+        <div className="lg:flex justify-between lg:ml-[235px] lg:mr-[235px]">
             <div className="">
                 <Sidebar />
             </div>
