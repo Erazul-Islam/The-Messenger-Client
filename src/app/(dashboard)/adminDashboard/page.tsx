@@ -15,6 +15,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import Cookies from 'js-cookie';
 import { Spinner } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 
 type FormData = {
     name: string;
@@ -26,6 +27,7 @@ const Dashboard = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
+    const router = useRouter()
 
     if (!userInfo) {
         return <Spinner style={{alignItems:"center", justifyContent:'center'}} />;
@@ -53,11 +55,10 @@ const Dashboard = () => {
                     },
                 }
             );
-
-            // Display success notification using sooner
             toast.success('Group created successfully!');
+            router.push("/groups")
         } catch (err) {
-            toast.error('Failed to create group. Please try again.');
+            toast.error(`Failed to create group. ${err} `);
 
         }
     };

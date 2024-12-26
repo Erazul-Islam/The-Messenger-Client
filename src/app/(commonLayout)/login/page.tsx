@@ -81,7 +81,7 @@ const LoginPage = () => {
                     </TSForm>
                     <div className="md:flex justify-evenly">
                         <div className="text-center">
-                            Don&lsquo;t have account ? <Link href={"/register"}> <p className="text-pink-500">Register</p> </Link>
+                            Don&lsquo;t have account ? <Link href={"/signup"}> <p className="text-pink-500">Sign up</p> </Link>
                         </div>
                     </div>
                 </div>

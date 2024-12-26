@@ -1,5 +1,7 @@
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
+
+
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -23,8 +25,11 @@ import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "./theme-switch";
 import { DiscordIcon, GithubIcon, HeartFilledIcon, Logo, TwitterIcon } from "./icons";
 
+
+
 export const Navbar = () => {
   
+
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">

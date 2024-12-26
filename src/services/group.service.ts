@@ -3,15 +3,25 @@
 /* eslint-disable prettier/prettier */
 "use server"
 
-import axiosInstance from "../providers/axiosinstance"
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
+export const getCurrentUser = async () => {
+    const accessToken = Cookies.get("accessToken");
 
-export const addCommentService = async (createdBy: string) => {
-    try {
-        const response = await axiosInstance.post(`/group/create-group/${createdBy}`)
+    let decodedToken = null;
 
-        return response.data
-    } catch (err) {
-        console.log(err)
+    if (accessToken) {
+        decodedToken = await jwtDecode(accessToken);
+
+        return {
+            _id: decodedToken._id,
+            email: decodedToken.email,
+            password: decodedToken.password,
+            role: decodedToken.role,
+            name: decodedToken.name,
+        };
     }
-}
+
+    return decodedToken;
+};
