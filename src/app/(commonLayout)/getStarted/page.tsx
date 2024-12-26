@@ -1,12 +1,15 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable prettier/prettier */
 "use client"
 
 
 import React from 'react';
 import { motion } from "framer-motion"
+import Link from 'next/link';
 
 import { useUserInfo } from '@/src/utils/userinfo';
-import Link from 'next/link';
 
 
 const GetStarted = () => {
@@ -96,7 +99,7 @@ const GetStarted = () => {
                 className="mt-12"
             >
                 <button className="px-6 py-3 text-lg font-medium bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700">
-                    {userInfo === null ? <Link href='/signup'>Signup</Link> : "start chat"} 
+                    {userInfo === null ? <Link href='/signup'>Signup</Link> : <Link href="/groups">start chat</Link>} 
                 </button>
             </motion.div>
         </div>

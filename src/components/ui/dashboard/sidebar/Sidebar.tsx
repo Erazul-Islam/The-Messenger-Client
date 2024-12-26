@@ -34,7 +34,6 @@ const Sidebar = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const router = useRouter()
 
   const token = Cookies.get("accessToken");
@@ -96,7 +95,6 @@ const Sidebar = () => {
     Cookies.remove("accessToken");
     toast.success("Logged out successfully!");
     router.push('/login')
-
   };
 
   if (isLoading) {
