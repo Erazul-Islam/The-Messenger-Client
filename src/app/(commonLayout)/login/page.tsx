@@ -39,7 +39,7 @@ const LoginPage = () => {
             if (response.data.success === true) {
                 const { accessToken } = response.data.data
 
-                Cookies.set('accessToken', accessToken, { expires: 1 })
+                Cookies.set('accessToken', accessToken, { expires: 1, path: "/", sameSite: "Strict" })
 
                 toast.success("Logged in successfully")
 

@@ -18,7 +18,7 @@ export const useUserInfo = () => {
     if (user) {
       setUserInfo(user); 
     }
-    setLoading(false); // Stop loading once the user info is fetched
+    setLoading(false);
   }, []);
 
   return { userInfo, loading };

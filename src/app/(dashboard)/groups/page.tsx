@@ -9,6 +9,8 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { motion } from "framer-motion"
 import { useRouter } from 'next/navigation';
+import { useUserInfo } from '@/src/utils/userinfo';
+
 
 
 type Group = {
@@ -29,7 +31,6 @@ const GroupPage = () => {
     const icons = [
         "📚", "🎮", "🎨", "💼", "🏀", "🖥️", "🎶", "⚽", "🌍", "🍔", "🧩", "💻",
     ];
-
 
     useEffect(() => {
         const fetchGroups = async () => {
