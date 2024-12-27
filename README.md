@@ -5,19 +5,17 @@ This is a full stack chat application where a community interact with each other
 ## Technologies Used
 
 - [Nextjs]
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
+- [NextUI v2]
+- [Tailwind CSS]
+- [Tailwind Variants]
+- [TypeScript]
+- [Framer Motion]
 - [JWT]
 - [SocketIO]
 - [React-hooks-form]
 - [SOONER]
 
 ## How to Use
-
-### Use the template with create-next-app
 
 To run the project in locally clone the git url command 
 
@@ -61,4 +59,10 @@ npm run dev
 
 ```bash
 https://the-messenger-client.onrender.com
+```
+# VIDEO
+
+```bash
+https://the-messenger-client.onrender.com/
+```
 ```
