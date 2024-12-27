@@ -58,7 +58,7 @@ const Dashboard = () => {
             toast.success('Group created successfully!');
             router.push("/groups")
         } catch (err) {
-            toast.error(`Failed to create group. ${err} `);
+            toast.error(`Group name must be unique ${err} `);
 
         }
     };

@@ -79,7 +79,7 @@ const Sidebar = () => {
         ...(userInfo?.role === "ADMIN"
           ? [
               {
-                title: "Dashboard",
+                title: "Admin Panel",
                 path: "/adminDashboard",
                 icon: <MdDashboard />,
               },

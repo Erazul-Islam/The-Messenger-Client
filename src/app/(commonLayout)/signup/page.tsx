@@ -48,7 +48,7 @@ const SignupUser = () => {
             } else {
                 // Handle HTTP errors (e.g., registration failed)
                 const errorData = await response.json();
-                toast.error("Registration failed: " + errorData.message);
+                toast.error("Registration failed: email must be unique " + errorData.message);
                 setLoading(false);
             }
         } catch (error) {

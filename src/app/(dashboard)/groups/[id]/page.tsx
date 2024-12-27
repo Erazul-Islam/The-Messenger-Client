@@ -25,7 +25,6 @@ const Chat = () => {
     const [newMessage, setNewMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState(true);
     const [loading, setLoading] = useState(false)
-    const [isUserInGroup, setIsUserInGroup] = useState(false)
     const token = Cookies.get("accessToken");
 
     const messageInputRef = useRef<HTMLInputElement>(null);
@@ -48,11 +47,7 @@ const Chat = () => {
                     }
                 );
 
-                setGroups(res.data.data);
-
-                const userInGroup = res.data.data.some((group: any) => group.userGroups.some((member: any) => member.userId === userInfo?.id));
-
-                setIsUserInGroup(userInGroup);
+                setGroups(res.data.data);               
 
                 setIsLoading(false);
             } catch (err) {
@@ -125,13 +120,11 @@ const Chat = () => {
         };
     }, []);
 
+ 
+
+
     const handleSendMessage = async () => {
 
-        if (!isUserInGroup) {
-            toast.error("You must join the group to send a message.");
-
-            return;
-        }
 
         if (newMessage.trim()) {
             const userId = userInfo?.id;
@@ -170,7 +163,7 @@ const Chat = () => {
                 messageInputRef.current?.focus();
             } catch (error) {
 
-                toast.error(`Failed to send message. ${error}`);
+                toast.error(`Do you join the group? ${error}`);
             } finally {
                 setLoading(false);
             }
