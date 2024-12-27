@@ -65,3 +65,19 @@ https://the-messenger-client.onrender.com
 ```bash
 https://the-messenger-client.onrender.com/
 ``` 
+admin credential
+
+email = admin@gmail.com
+password = 123456
+
+user credential 
+
+email = user@gmail.com
+password = 123456
+
+# Note
+
+Sometimes the functionality may not work as I hosted the application into render. Because the render application is going to sleepy mood after 15 mins . Because it is 
+a free service.
+Since I use socket io , so it is not working on vercel free hosting service.
+If you face any issue , you can reload then it is working , I hope.
