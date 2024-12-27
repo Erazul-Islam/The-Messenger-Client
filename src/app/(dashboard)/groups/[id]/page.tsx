@@ -25,6 +25,7 @@ const Chat = () => {
     const [newMessage, setNewMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState(true);
     const [loading, setLoading] = useState(false)
+    const [isUserInGroup, setIsUserInGroup] = useState(false)
     const token = Cookies.get("accessToken");
 
     const messageInputRef = useRef<HTMLInputElement>(null);
@@ -49,6 +50,10 @@ const Chat = () => {
 
                 setGroups(res.data.data);
 
+                const userInGroup = res.data.data.some((group: any) => group.userGroups.some((member: any) => member.userId === userInfo?.id));
+
+                setIsUserInGroup(userInGroup);
+
                 setIsLoading(false);
             } catch (err) {
                 toast.error(`Failed to fetch groups. ${err}`);
@@ -57,7 +62,7 @@ const Chat = () => {
         };
 
         fetchGroups();
-    }, [token, id]);
+    }, [token, id])
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -121,7 +126,13 @@ const Chat = () => {
     }, []);
 
     const handleSendMessage = async () => {
-        
+
+        if (!isUserInGroup) {
+            toast.error("You must join the group to send a message.");
+
+            return;
+        }
+
         if (newMessage.trim()) {
             const userId = userInfo?.id;
             const messageData = {
@@ -185,26 +196,26 @@ const Chat = () => {
                 <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
                     {messages.length === 0 && !isLoading ? (
                         <div className="font-serif">No messages yet.</div>
-                    ) :  (
+                    ) : (
                         messages.map((message, index) => (
                             <div
                                 key={index}
-                                className={`flex ${index % 2 === 0 ? "justify-start" : "justify-end"} my-2`}
+                                className={`flex ${message.userId === userInfo?.id ? "justify-end" : "justify-start"} my-2`}
                             >
                                 <div
-                                    className={`${index % 2 === 0
-                                        ? "bg-gray-100"
-                                        : "bg-blue-100"
+                                    className={`${message.userId === userInfo?.id ? "bg-blue-100" : "bg-gray-100"
                                         } px-5 py-3 rounded-lg max-w-md shadow`}
                                 >
-                                    <p className={`text-sm font-bold mb-1 ${index % 2 === 0 ? "text-pink-600" : "text-blue-600"}`}>
+                                    <p className={`text-sm font-bold mb-1 ${message.userId === userInfo?.id ? "text-blue-600" : "text-pink-600"}`}>
                                         {message?.userName}
                                     </p>
-                                    <p className={`text-sm ${index % 2 === 0 ? "text-gray-700" : "text-gray-800"}`}>
+                                    <p className={`text-sm ${message.userId === userInfo?.id ? "text-gray-800" : "text-gray-700"}`}>
                                         {message?.content}
                                     </p>
-                                    <p className={`text-xs mt-2 ${index % 2 === 0 ? "text-gray-500" : "text-gray-600"}`}>
-                                        {message?.createdAt ? new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
+                                    <p className={`text-xs mt-2 ${message.userId === userInfo?.id ? "text-gray-600" : "text-gray-500"}`}>
+                                        {message?.createdAt
+                                            ? new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                                            : ""}
                                     </p>
                                 </div>
                             </div>
@@ -233,7 +244,7 @@ const Chat = () => {
                 </div>
             </div>
             <div>
-                <Rightbar isLoading={isLoading} groups={groups} />
+                <Rightbar isLoading={isLoading} setGroups={setGroups} groups={groups} />
             </div>
         </div>
     );

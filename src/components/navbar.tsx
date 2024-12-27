@@ -6,7 +6,6 @@ import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
@@ -14,15 +13,13 @@ import {
 
 
 import { Link } from "@nextui-org/link";
-
+ 
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/src/config/site";
 
-
-import { ThemeSwitch } from "./theme-switch";
 import {  Logo } from "./icons";
 
 

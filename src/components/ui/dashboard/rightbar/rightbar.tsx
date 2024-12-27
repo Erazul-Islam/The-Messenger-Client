@@ -20,7 +20,6 @@ import Cookies from 'js-cookie';
 type User = {
     id: string;
     email: string;
-    password: string;
     name: string;
     role: string;
 };
@@ -43,10 +42,11 @@ export type TGroup = {
 type GroupMembersProps = {
     groups: TGroup[];
     isLoading: boolean
+    setGroups: React.Dispatch<React.SetStateAction<TGroup[]>>;
 };
 
 
-const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
+const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading, setGroups }) => {
 
     const { userInfo } = useUserInfo()
     const [loadingGroup, setLoadingGroup] = useState<string | null>(null);
@@ -67,15 +67,38 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 }
-            )       
+            )
 
             if (response.status === 201) {
                 toast.success("Successfully joined the group")
-                
+                setGroups((prevGroups) => 
+                    prevGroups.map((group) =>
+                        group.id === groupId 
+                            ? {
+                                ...group,
+                                userGroups : [
+                                    ...group.userGroups,
+                                    {
+                                        id : '',
+                                        userId : userInfo.id,
+                                        groupId,
+                                        user : {
+                                            id : userInfo.id,
+                                            name : userInfo.name,
+                                            email : userInfo.email,
+                                            role : userInfo.role
+                                        }
+                                    }
+                                ]
+                            } 
+                            : group
+                    )
+                )
+
             }
         }
         catch (err) {
-            
+
             toast.error("Something went wrong")
         }
         finally {
@@ -137,9 +160,9 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
                             </Button>
                         ) : loadingGroup === group.id ? (
                             <Button isLoading color="primary" className="mt-4">
-                              
+
                             </Button>
-                        ) : ( 
+                        ) : (
                             <Button color="success" className="mt-4 rounded-md" onClick={() => handleJoinGroup(group.id)}>
                                 Join Group
                             </Button>

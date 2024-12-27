@@ -39,6 +39,10 @@ const GroupPage = () => {
     ];
 
     useEffect(() => {
+
+        if (!userInfo) return
+
+
         const fetchGroups = async () => {
             try {
                 const res = await axios.get(`https://the-messenger-xs42.onrender.com/api/group/see-group`, {
@@ -61,7 +65,7 @@ const GroupPage = () => {
 
                 setIsLoading(false);
             } catch (err) {
-    
+
                 toast.error(`Failed to fetch groups. ${err}`);
                 setIsLoading(false);
             }
@@ -76,7 +80,7 @@ const GroupPage = () => {
     }
 
     if (isLoading) {
-        return <Spinner style={{ display: "flex", justifyContent: "center", alignItems: "center",minHeight:"100vh" }} />
+        return <Spinner style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }} />
     }
 
     return (
