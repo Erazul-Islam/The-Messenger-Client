@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 /* eslint-disable padding-line-between-statements */
 /* eslint-disable prettier/prettier */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
@@ -14,7 +16,7 @@ import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
 import TSForm from "@/src/components/form/form";
 import TSInput from "@/src/components/form/input";
-import { io } from "socket.io-client";
+
 import { toast } from "sonner";
 
 const SignupUser = () => {
@@ -38,7 +40,7 @@ const SignupUser = () => {
                 },
                 body: JSON.stringify(userData),
             });
-            console.log(response)
+
 
             if (response.ok) {
                 toast.success("User registered successfully")
@@ -50,8 +52,8 @@ const SignupUser = () => {
                 setLoading(false);
             }
         } catch (error) {
-            console.log(error)
-            toast.error("An error occurred: ");
+      
+            toast.error(`An error occurred: ${error} `);
             setLoading(false);
         }
     };

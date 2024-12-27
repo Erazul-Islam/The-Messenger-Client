@@ -1,4 +1,8 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable prettier/prettier */
+/* eslint-disable import/order */
+/* eslint-disable prettier/prettier */
 
 "use client"
 
@@ -24,7 +28,7 @@ const GroupPage = () => {
 
     const [groups, setGroups] = useState<Group[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [isError, setIsError] = useState(false);
+
     const router = useRouter()
     const { userInfo } = useUserInfo()
 
@@ -57,7 +61,7 @@ const GroupPage = () => {
 
                 setIsLoading(false);
             } catch (err) {
-                setIsError(true);
+    
                 toast.error(`Failed to fetch groups. ${err}`);
                 setIsLoading(false);
             }

@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable import/order */
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 "use server"
@@ -27,6 +29,7 @@ export const loginUser = async (userData: FieldValues) => {
 
 export const logout = async () => {
     const cookieStore = await cookies(); 
+    
     cookieStore.delete("accessToken");
 };
 

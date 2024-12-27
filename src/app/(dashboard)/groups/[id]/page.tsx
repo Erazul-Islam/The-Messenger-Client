@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable prettier/prettier */
 "use client";
 
 import axios from "axios";
@@ -8,7 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import io from "socket.io-client";
 
-import ChatSkeleton from "@/src/components/ui/skeleton/chatBoxSkeleton";
+
 import { useUserInfo } from "@/src/utils/userinfo";
 import Rightbar, { TGroup } from "@/src/components/ui/dashboard/rightbar/rightbar";
 import Sidebar from "@/src/components/ui/dashboard/sidebar/Sidebar";
@@ -88,8 +90,6 @@ const Chat = () => {
 
         if (id && token) fetchMessages();
     }, [id, token]);
-
-    console.log("messages", messages)
 
     useEffect(() => {
         socket.on("receiveMessage", ({ content, userId, groupId, userName, createdAt }) => {

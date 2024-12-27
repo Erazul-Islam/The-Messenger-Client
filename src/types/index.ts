@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {

@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
 import "@/src/styles/globals.css";
 import { Metadata, Viewport } from "next";
@@ -8,8 +9,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 import { Navbar } from "../components/navbar";
-import Sidebar from "../components/ui/dashboard/sidebar/Sidebar";
-import Rightbar from "../components/ui/dashboard/rightbar/rightbar";
+
 
 export const metadata: Metadata = {
   title: {
