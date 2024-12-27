@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 const AuthRoutes = ["/login", "/signup"];
 
 const roleBasedRoutes = {
-  USER: ['/groups', '/userDashboard','/groups/[id]'], 
+  MEMBER: ['/groups', '/userDashboard','/groups/[id]'], 
   ADMIN: ['/groups','/adminDashboard','/groups/[id]'], 
 };
 
@@ -25,14 +25,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
 
-      return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, request.url));
+      return NextResponse.redirect(new URL(`/login`, request.url));
     }
   } else {
     try {
 
       const decodedToken = jwt.decode(accessToken);
-
- 
 
       if (decodedToken && typeof decodedToken === 'object') {
         const userRole = decodedToken?.role;
@@ -40,13 +38,24 @@ export async function middleware(request: NextRequest) {
         if (!userRole) {
           return NextResponse.redirect(new URL('/login', request.url));
         }
+        const isDynamicRoute = pathname.includes('/groups/');
+
+        if (isDynamicRoute) {
+
+          if (
+            (userRole === 'MEMBER' && roleBasedRoutes.MEMBER.some(route => pathname.startsWith(route))) ||
+            (userRole === 'ADMIN' && roleBasedRoutes.ADMIN.some(route => pathname.startsWith(route)))
+          ) {
+            return NextResponse.next();
+          }
+        }
 
         if (pathname === '/adminDashboard' && userRole !== 'ADMIN') {
           return NextResponse.redirect(new URL('/', request.url));
         }
 
         if (
-          (userRole === 'MEMBER' && roleBasedRoutes.USER.includes(pathname)) ||
+          (userRole === 'MEMBER' && roleBasedRoutes.MEMBER.includes(pathname)) ||
           (userRole === 'ADMIN' && roleBasedRoutes.ADMIN.includes(pathname))
         ) {
           return NextResponse.next();
@@ -62,5 +71,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile', '/userDashboard', '/adminDashboard', '/login', '/signup', '/groups'],
+  matcher: ['/profile', '/userDashboard', '/adminDashboard', '/login', '/signup', '/groups','/groups/:path*'],
 };
