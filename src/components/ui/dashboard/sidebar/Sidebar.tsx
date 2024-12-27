@@ -33,7 +33,9 @@ type Group = {
 const Sidebar = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false)
   const [isError, setIsError] = useState(false);
+  
   const router = useRouter()
   const {userInfo} = useUserInfo()
 
@@ -93,16 +95,6 @@ const Sidebar = () => {
         icon: <MdGroup />,
       })),
     },
-    // {
-    //   title: "Settings",
-    //   list: [
-    //     {
-    //       title: "Account Settings",
-    //       path: "/settings",
-    //       icon: <MdOutlineSettings />,
-    //     },
-    //   ],
-    // },
   ];
 
   const handleLogout = () => {
@@ -120,8 +112,7 @@ const Sidebar = () => {
   }
 
   return (
-    <aside className="bg-white shadow-lg overflow-y-auto text-gray-500 h-[700px] w-[300px]">
-
+    <aside className="bg-white shadow-lg h-[500px] w-[350px] overflow-y-auto text-gray-500 lg:h-[700px] lg:w-[300px]">
       <nav>
         <ul className="space-y-4 p-6">
           {menuItems.map((category) => (
@@ -132,7 +123,7 @@ const Sidebar = () => {
                   <li key={item.title}>
                     <Link
                       href={item.path}
-                      className={`flex items-center space-x-3 p-2 rounded hover:bg-blue-600 hover:text-white ${pathname === item.path && 'bg-blue-600 text-white'} `}
+                      className={`flex items-center space-x-3 p-2 rounded md:hover:bg-blue-600 md:hover:text-white ${pathname === item.path && 'bg-blue-600 text-white'} `}
                     >
                       {item.icon}
                       <span>{item.title}</span>

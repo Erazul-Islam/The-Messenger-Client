@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-sort-props */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -46,13 +48,9 @@ type GroupMembersProps = {
 
 const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
 
-  
-
     const { userInfo } = useUserInfo()
     const [loadingGroup, setLoadingGroup] = useState<string | null>(null);
     const token = Cookies.get("accessToken");
-
-    
 
     const handleJoinGroup = async (groupId: string) => {
         if (userInfo === null) {
@@ -69,11 +67,11 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 }
-            )
-        
+            )       
 
             if (response.status === 201) {
                 toast.success("Successfully joined the group")
+                
             }
         }
         catch (err) {
@@ -95,7 +93,7 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
 
     return (
         <div>
-            <div className="p-6 bg-white overflow-y-auto h-[700px] shadow-lg rounded-lg w-[300px]">
+            <div className="p-6 bg-white overflow-y-auto lg:mb-0 mb-10 w-[350px] h-[500px] lg:h-[700px] shadow-lg rounded-lg lg:w-[300px]">
                 {groups.map((group) => (
                     <div key={group.id} className="mb-8">
                         {/* Group Header */}
@@ -134,15 +132,15 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
                             )}
                         </div>
                         {isUserInGroup(group) ? (
-                            <Button color="secondary" className="mt-4" disabled>
+                            <Button color="primary" className="mt-4 rounded-md" disabled>
                                 Joined
                             </Button>
                         ) : loadingGroup === group.id ? (
-                            <Button isLoading color="secondary" className="mt-4">
-                                Joining...
+                            <Button isLoading color="primary" className="mt-4">
+                              
                             </Button>
-                        ) : (
-                            <Button color="secondary" className="mt-4" onClick={() => handleJoinGroup(group.id)}>
+                        ) : ( 
+                            <Button color="success" className="mt-4 rounded-md" onClick={() => handleJoinGroup(group.id)}>
                                 Join Group
                             </Button>
                         )}

@@ -168,11 +168,11 @@ const Chat = () => {
 
 
     return (
-        <div className="lg:flex justify-between lg:ml-[235px] lg:mr-[235px]">
+        <div className="lg:flex justify-between mt-[20px] ml-[50px] lg:ml-[235px] lg:mr-[235px]">
             <div className="">
                 <Sidebar />
             </div>
-            <div className="flex flex-col lg:h-[700px] w-[400px] bg-gray-100 shadow-lg ">
+            <div className="flex flex-col h-[500px] lg:mt-0 lg:mb-0 mt-[15px] mb-[15px] w-[350px] lg:h-[700px] lg:w-[400px] bg-gray-100 shadow-lg ">
                 {/* Chat Header */}
                 <div className="bg-blue-600 text-white p-4 flex shadow-lg items-center justify-between">
                     <h2 className="text-lg font-serif">Chat Room</h2>
@@ -214,7 +214,7 @@ const Chat = () => {
                 </div>
 
                 {/* Chat Input */}
-                <div className="p-4 bg-gray-200 flex items-center space-x-3">
+                <div className="md:p-4 p-2  bg-gray-200 flex items-center space-x-3">
                     <input
                         ref={messageInputRef}
                         type="text"
@@ -226,7 +226,7 @@ const Chat = () => {
                     <button
                         onClick={handleSendMessage}
                         disabled={loading || !newMessage.trim()}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+                        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
                     >
                         {loading ? "Sending..." : "Send"}
                     </button>

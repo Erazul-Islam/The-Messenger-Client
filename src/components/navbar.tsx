@@ -58,9 +58,9 @@ export const Navbar = () => {
         </ul>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch />
-        <NavbarMenuToggle />
+      <NavbarContent className="sm:hidden font-serif basis-1 pl-4" justify="end">
+        <Link href="/"><div>Home</div></Link>
+        <Link href="/groups"><div>Groups</div></Link>
       </NavbarContent>
 
       <NavbarMenu>

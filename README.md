@@ -1,32 +1,40 @@
-# Next.js & NextUI Template
+# ChatVerse
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
-
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+This is a full stack chat application where a community interact with each other.
 
 ## Technologies Used
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
+- [Nextjs]
 - [NextUI v2](https://nextui.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- [JWT]
+- [SocketIO]
+- [React-hooks-form]
+- [SOONER]
 
 ## How to Use
 
 ### Use the template with create-next-app
 
-To create a new project based on this template using `create-next-app`, run the following command:
+To run the project in locally clone the git url command 
 
 ```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
+https://github.com/Erazul-Islam/The-Messenger-Client.git
 ```
 
 ### Install dependencies
 
 You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+
+put the backend URL 
+
+```bash
+https://the-messenger-xs42.onrender.com
+```
+
 
 ```bash
 npm install
@@ -38,16 +46,19 @@ npm install
 npm run dev
 ```
 
+
 ### Setup pnpm (optional)
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+# Features
+ 1. CUSTOM AUTHENTICATION SYSTEM
+ 2. PROTECTED ROUTE
+ 3. REAL TIME CHAT
+ 4. RESPONSIVE
+ 5. ROLE BASED ROUTE
+ 6. ADMIN DASHBOARD
+
+# LIVE LINK
 
 ```bash
-public-hoist-pattern[]=*@nextui-org/*
+https://the-messenger-client.onrender.com
 ```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).

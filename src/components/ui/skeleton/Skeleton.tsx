@@ -6,7 +6,7 @@ import React from "react";
 
 const SidebarSkeleton = () => {
   return (
-    <aside className="bg-white shadow-lg h-[700px] overflow-visible w-[300px] p-6 animate-pulse">
+    <aside className="bg-white shadow-lg h-[500px] w-[350px] lg:h-[700px] lg:-[300px] overflow-visible lg:w-[300px] p-6 animate-pulse">
       <header className="mb-6">
         <div className="h-6 w-32 bg-gray-300 rounded"></div>
       </header>
