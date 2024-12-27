@@ -11,7 +11,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
+
 
 import { Link } from "@nextui-org/link";
 
@@ -23,7 +23,7 @@ import { siteConfig } from "@/src/config/site";
 
 
 import { ThemeSwitch } from "./theme-switch";
-import { DiscordIcon, GithubIcon, HeartFilledIcon, Logo, TwitterIcon } from "./icons";
+import {  Logo } from "./icons";
 
 
 

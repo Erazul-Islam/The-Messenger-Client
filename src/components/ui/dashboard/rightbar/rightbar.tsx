@@ -1,4 +1,8 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 /* eslint-disable prettier/prettier */
 
@@ -9,7 +13,7 @@ import { useUserInfo } from '@/src/utils/userinfo';
 import { toast } from 'sonner';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { io } from 'socket.io-client';
+
 
 type User = {
     id: string;
@@ -42,7 +46,7 @@ type GroupMembersProps = {
 
 const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
 
-    console.log(groups)
+  
 
     const { userInfo } = useUserInfo()
     const [loadingGroup, setLoadingGroup] = useState<string | null>(null);
@@ -53,6 +57,7 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
     const handleJoinGroup = async (groupId: string) => {
         if (userInfo === null) {
             toast.error("Please log in first")
+
             return
         }
         setLoadingGroup(groupId)
@@ -65,14 +70,14 @@ const Rightbar: React.FC<GroupMembersProps> = ({ groups, isLoading }) => {
                     },
                 }
             )
-            console.log(response)
+        
 
             if (response.status === 201) {
                 toast.success("Successfully joined the group")
             }
         }
         catch (err) {
-            console.log(err)
+            
             toast.error("Something went wrong")
         }
         finally {
