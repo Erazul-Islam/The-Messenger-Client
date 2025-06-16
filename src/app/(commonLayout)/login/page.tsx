@@ -47,8 +47,9 @@ const LoginPage = () => {
             }
 
 
-        } catch (err: any) {
-            toast.error(`Please input valid email and password ${err}`)
+        } catch (err) {
+            console.log(err)
+            toast.error(`Please input valid email and password`)
         } finally {
             setLoading(false);
         }

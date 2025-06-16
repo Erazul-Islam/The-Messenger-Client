@@ -51,7 +51,7 @@ const Chat = () => {
 
                 setIsLoading(false);
             } catch (err) {
-                toast.error(`Failed to fetch groups. ${err}`);
+                toast.error(`Failed to fetch groups}`);
                 setIsLoading(false);
             }
         };

@@ -52,8 +52,8 @@ const SignupUser = () => {
                 setLoading(false);
             }
         } catch (error) {
-      
-            toast.error(`An error occurred: ${error} `);
+             
+            toast.error(`An error occurred`);
             setLoading(false);
         }
     };
