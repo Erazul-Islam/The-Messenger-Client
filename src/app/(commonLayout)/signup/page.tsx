@@ -53,7 +53,7 @@ const SignupUser = () => {
             }
         } catch (error) {
              
-            toast.error(`An error occurred`);
+            toast.error(`An error occurred ${error}`);
             setLoading(false);
         }
     };
@@ -61,7 +61,7 @@ const SignupUser = () => {
     return (
         <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
             <h3 className="my-2 text-xl text-pink-500 font-bold">Please Sign up</h3>
-            <div className="w-[35%]">
+            <div>
                 <TSForm
 
                     onSubmit={onSubmit}
@@ -82,7 +82,7 @@ const SignupUser = () => {
                         />
                     </div>
                     <Button
-                        className="my-3 w-full rounded-sm bg-pink-600 text-white"
+                        className="my-3 w-full  rounded-xl bg-pink-600 text-white"
                         size="lg"
                         type="submit"
                     >

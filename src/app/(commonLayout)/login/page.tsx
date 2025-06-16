@@ -43,7 +43,7 @@ const LoginPage = () => {
 
                 toast.success("Logged in successfully")
 
-                router.push('/')
+                router.push('/groups')
             }
 
 
@@ -61,7 +61,7 @@ const LoginPage = () => {
             <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
                 <h3 className="my-2 text-2xl text-pink-700 font-bold">Please log in</h3>
                 <p className="mb-4"></p>
-                <div className="w-[35%]">
+                <div>
                     <TSForm
                         onSubmit={onSubmit}
                     >
@@ -73,7 +73,7 @@ const LoginPage = () => {
                         </div>
 
                         <Button
-                            className="my-3 w-full rounded-sm  bg-pink-700 font-semibold text-white"
+                            className="my-3 w-full rounded-xl  bg-pink-700 font-semibold text-white"
                             size="lg"
                             type="submit"
                         >
